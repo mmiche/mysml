@@ -1,0 +1,29 @@
+Package: mysml
+Type: Package
+Title: This Package Contains Supervised Machine Learning Functionality
+Version: 0.1.0
+Author: Marcel Miché
+Maintainer: Marcel Miché <marcel.miche.predictme@gmail.com>
+Description: This package enables easy use of computing the clinical utility, the calibration, and the discriminatory performance of clinical prediction models.
+    Mostly custom functions without any guarantees, as usual.
+License: MIT + file LICENSE
+Repository: GitHub
+URL: https://github.com/mmiche/mysml
+Encoding: UTF-8
+Imports: Rdpack,
+         CalibratR,
+         dplyr,
+         forcats,
+         rms,
+         tibble,
+         tidyr,
+         magrittr
+RdMacros: Rdpack
+RoxygenNote: 7.2.3
+Depends: 
+    R (>= 4.4.0)
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+LazyData: true

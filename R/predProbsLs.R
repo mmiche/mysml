@@ -1,0 +1,22 @@
+#' A list that contains data.frames, used in some code examples of mysml.
+#'
+#' This predProbsLs list object has been produced with the simulated dummyData. Five repetitions of a 5-fold cross-validation have lead to 25 validation performances for each of both prediction models, i.e., logistic regression and random forest.
+#' 
+#' Each data.frame in the list contains three columns:
+#' 
+#' @format A data.frame with 734 rows (20% of full sample size, which is 3670) and 3 columns:
+#' \itemize{
+#'   \item observed (binary outcome; 0 = no event observed, 1 = event observed).
+#'   \item predicted (predicted probabilities, i.e., values between > 0 and < 1).
+#'   \item ids (dataset row number or some other identifier).
+#' }
+#'
+#' @docType data
+#' @keywords observed outcome, predicted probabilities
+#' @name predProbsLs
+#'
+#' @usage data(predProbsLs)
+#' @examples
+#' # Display the names of the list
+#' names(predProbsLs) # logreg rf (rf = random forest)
+"predProbsLs"
