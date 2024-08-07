@@ -27,3 +27,4 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 LazyData: true
+BugReports: https://github.com/mmiche/mysml/issues
