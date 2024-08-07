@@ -22,6 +22,19 @@ a list with three data.frames (df) as elements:
 \description{
 Compute some calibration related summary results.
 }
+\details{
+The returned calibration related results are: 
+\enumerate{
+\item Brier score: Best possible result (Bpr) = 0.
+\item Calibration Intercept: Bpr = 0.
+\item Calibration Slope: Bpr = 1.
+\item Emax: Bpr = 0.
+\item E90: Bpr = 0.
+\item ECE: Bpr = 0.
+\item MCE: Bpr = 0.
+\item ICI: Bpr = 0.
+}
+}
 \examples{
 # Use part of the saved output from the function 'computeRelevantResults'.
 calibResultsLs <- lapply(test$calibLs, FUN=function(x) {

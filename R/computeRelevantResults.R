@@ -45,12 +45,12 @@
 # dcaStartAtZero <- TRUE
 
 computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE, dcaReasonableThresholds=c(.01, .02, .03, .04, .05)) {
-
+    
     # Extract names from the object (of class 'list') predictionOutputLs
     listNames <- names(predictionOutputLs)
     # Produce empty list with same list names (task: collect the relevant results).
     relevantResultsLs <- sapply(listNames, function(x) NULL)
-
+    
     reps <- length(predictionOutputLs[[listNames[1]]])
     if(all(is.null(names(predictionOutputLs[[listNames[1]]])))) {
         singleDataframe <- FALSE
@@ -58,7 +58,7 @@ computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE,
         singleDataframe <- TRUE
         reps <- 1
     }
-
+    
     # Ordered observations, relevant for visualization.
     orderedObsLs <- list()
     # reps is equal or less than 3, if the list contains only one data.frame for each model.
@@ -84,12 +84,12 @@ computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE,
             }
         }
     }
-
+    
     # ---------------------------------------------------------
     # 1.
     # Most important for clinical practice: Net benefit (= clinical utility, regarding the only question of interest: Does the algorithm or does it not potentially improve decision making in the clinical real world?)
     # ---------------------------------------------------------
-
+    
     # dcaLs <- list()
     dcaLs <- sapply(c("tableDCA", "plotDCA"), function(x) NULL)
     # i <- 1
@@ -109,15 +109,15 @@ computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE,
                 dca_j <- dca(inputDataset = output_ji, truth="observed", prob="predicted", selectedThresholds = dcaReasonableThresholds, plotStartAtZero=dcaStartAtZero)
                 dcaLs_i[[j]] <- dca_j
             }
-
+            
         }
         # names(dcaLs_i)
-
+        
         # Extract and extend the wide format of the net benefit results of logreg.
         dcaTblLogreg <- dcaLs_i[["logreg"]]$tbl
         dcaTblLogreg$model <- "logreg"
         dcaTblLogreg$rep <- i
-
+        
         # Extract and extend the wide format of the net benefit results of random forest.
         dcaTblrndFrst <- dcaLs_i[["rf"]]$tbl
         dcaTblrndFrst$model <- "randomForest"
@@ -126,7 +126,7 @@ computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE,
         dcaTbl <- dplyr::bind_rows(dcaTblLogreg, dcaTblrndFrst)
         # Append combined results to the list object 'dcaLs'.
         dcaLs[["tableDCA"]][[i]] <- dcaTbl
-
+        
         # Combine dca results of single prediction modesl.
         plotDCA <- combineDCA(plotTblLs = list("Logistic regression"=dcaLs_i[["logreg"]]$plotTbl, "Random forest"=dcaLs_i[["rf"]]$plotTbl))
         # Extract all factor levels from combined dca results
@@ -138,12 +138,12 @@ computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE,
         # Append combined results to the list object 'dcaLs'.
         dcaLs[["plotDCA"]][[i]] <- plotDCA
     }
-
+    
     # ---------------------------------------------------------
     # 2.
     # Calibration (more important for clinical practice than discrimination).
     # ---------------------------------------------------------
-
+    
     # calib: calibration
     calibLs <- list()
     # i <- 1
@@ -154,21 +154,21 @@ computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE,
         for(j in listNames) {
             if(singleDataframe) {
                 output_j <- predictionOutputLs[[j]]
-                #
+                # 
                 calibLs_i[[j]] <- output_j
             } else {
                 output_ji <- predictionOutputLs[[j]][[i]]
-                #
+                # 
                 calibLs_i[[j]] <- output_ji
             }
-
+            
         }
         calibLs[[i]] <- data.frame(logreg=calibLs_i[["logreg"]]$predicted,
                                    randomForest=calibLs_i[["rf"]]$predicted,
                                    observed=calibLs_i[["logreg"]]$observed)
     }
     # head(calibLs[[1]])
-
+    
     return(list(orderedObsLs=orderedObsLs, dcaLs=dcaLs, calibLs=calibLs))
 }
 
