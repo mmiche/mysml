@@ -10,6 +10,8 @@
 #
 #' @param seeds Numeric vector with a least one seed value (see \strong{Details}).
 #
+#' @param stratify. Boolean value to determine whether the outcome rate in the cross-validation subsamples shall be (roughly) the same as in the total sample (TRUE) or whether the outcome rate may vary (FALSE).
+#
 #' @details A seed is a numeric value with which the user can guarantee that a sampling function yields reproducible output, independent of who runs the sampling function or when it is used.
 #
 #' @return a list with two lists as elements:
@@ -31,32 +33,42 @@
 #
 #' @export
 #
-myRepeatedkFoldcv <- function(data=NULL, outcome="y", folds=NULL, seeds=NULL) {
+myRepeatedkFoldcv <- function(data=NULL, outcome="y", folds=NULL, stratify=TRUE, seeds=NULL) {
     
     # y = outcome (0 = no; 1 = yes)
     idNoCase <- which(data[,outcome]==0)
     idCase <- which(data[,outcome]==1)
     
-    casesLs <- chunk(idCase, n=folds)
-    for(i in 1:length(casesLs)) {casesLs[[i]] <- rep(i, times=length(casesLs[[i]]))}
-    casesVec <- unlist(casesLs)
-    nonCasesLs <- chunk(idNoCase, n=folds)
-    for(i in 1:length(nonCasesLs)) {nonCasesLs[[i]] <- rep(i, times=length(nonCasesLs[[i]]))}
-    nonCasesVec <- unlist(nonCasesLs)
+    if(stratify) {
+        data <- data[c(idCase, idNoCase),]
+    }
     
-    # repCV <- list()
+    casesLs <- chunk(idCase, n = folds)
+    for (i in 1:length(casesLs)) {
+        casesLs[[i]] <- rep(i, times = length(casesLs[[i]]))
+    }
+    casesVec <- as.numeric(unlist(casesLs))
+    
+    nonCasesLs <- chunk(idNoCase, n = folds)
+    for (i in 1:length(nonCasesLs)) {
+        nonCasesLs[[i]] <- rep(i, times = length(nonCasesLs[[i]]))
+    }
+    nonCasesVec <- as.numeric(unlist(nonCasesLs))
+    
     TrainLs <- TestLs <- list()
     count <- 1
-    for(s in 1:length(seeds)) {
+    for (s in 1:length(seeds)) {
         set.seed(seeds[s])
-        allIds <- sample(c(casesVec, nonCasesVec))
-        # repCV[[s]] <- allIds
-        for(f in 1:folds) {
+        
+        noCaseIds <- sample(nonCasesVec)
+        caseIds <- sample(casesVec)
+        allIds <- c(caseIds, noCaseIds)
+        
+        for (f in 1:folds) {
             TrainLs[[count]] <- data[allIds != f,]
             TestLs[[count]] <- data[allIds == f,]
             count <- count + 1
         }
     }
-    # 
-    return(list(TrainLs=TrainLs, TestLs=TestLs))
+    return(list(TrainLs = TrainLs, TestLs = TestLs))
 }

@@ -4,9 +4,9 @@
 #
 #
 myCalibPlot <- function(calibDf=NULL, n=10, model="noNameModel") {
-    idx <- dplyr::ntile(x=calibDf$predicted, n=10)
+    idx <- dplyr::ntile(x=calibDf$predicted, n=n)
     vals <- c()
-    for(i in 1:10) {
+    for(i in 1:n) {
         vals <- c(vals, mean(calibDf$predicted[idx==i]),
                   mnci(x=as.numeric(as.character(calibDf$observed[idx==i]))))
     }
