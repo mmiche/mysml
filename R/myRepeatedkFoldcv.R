@@ -10,7 +10,7 @@
 #
 #' @param seeds Numeric vector with a least one seed value (see \strong{Details}).
 #
-#' @param stratify. Boolean value to determine whether the outcome rate in the cross-validation subsamples shall be (roughly) the same as in the total sample (TRUE) or whether the outcome rate may vary (FALSE).
+#' @param stratify Boolean value to determine whether the outcome rate in the cross-validation subsamples shall be (roughly) the same as in the total sample (TRUE) or whether the outcome rate may vary (FALSE).
 #
 #' @details A seed is a numeric value with which the user can guarantee that a sampling function yields reproducible output, independent of who runs the sampling function or when it is used.
 #

@@ -6,6 +6,8 @@
 #
 #' @param calibLs Object that is the first out of three list elements (output) from function 'computeRelevantResults'.
 #
+#' @param n Integer value that determines the number of roughly equal sized groups of the test data subset (default n = 10).
+#
 #' @return a data.frame with seven columns:
 #' \enumerate{
 #' \item mn_x Mean x-axis value (x-axis = predicted probabilities).
@@ -34,18 +36,33 @@
 #
 #' @export
 #
-makeCalibPlotLs <- function(calibLs=NULL, model="noModel") {
+makeCalibPlotLs <- function(calibLs=NULL, model="noModel", n=10) {
     # 
     if(model=="noModel") {
         stop("Select the model.")
     }
     calibLs_model <- calibLs[[model]]
+    
+    # If there is just one data.frame, set singleDataframe to TRUE
+    if(is.data.frame(calibLs_model)) {
+        singleDataframe <- TRUE
+    } else {
+        singleDataframe <- FALSE
+    }
+    
     calibPlotLs <- list()
-    for(i in 1:length(calibLs_model)) {
-        calibPlot_i <- myCalibPlot(calibDf = calibLs_model[[i]], model=model)
-        calibPlot_i$run <- i
-        calibPlot_i$tile <- 1:nrow(calibPlot_i)
-        calibPlotLs[[i]] <- calibPlot_i
+    if(singleDataframe) {
+        calibPlotSingle <- myCalibPlot(calibDf = calibLs_model, model=model, n=n)
+        calibPlotSingle$run <- 1
+        calibPlotSingle$tile <- 1:nrow(calibPlotSingle)
+        calibPlotLs[[1]] <- calibPlotSingle
+    } else {
+        for(i in 1:length(calibLs_model)) {
+            calibPlot_i <- myCalibPlot(calibDf = calibLs_model[[i]], model=model, n=n)
+            calibPlot_i$run <- i
+            calibPlot_i$tile <- 1:nrow(calibPlot_i)
+            calibPlotLs[[i]] <- calibPlot_i
+        }
     }
     return(calibPlotLs)
 }

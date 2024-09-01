@@ -4,12 +4,14 @@
 \alias{makeCalibPlotLs}
 \title{Results to produce a calibration plot.}
 \usage{
-makeCalibPlotLs(calibLs = NULL, model = "noModel")
+makeCalibPlotLs(calibLs = NULL, model = "noModel", n = 10)
 }
 \arguments{
 \item{calibLs}{Object that is the first out of three list elements (output) from function 'computeRelevantResults'.}
 
 \item{model}{The name of the prediction model, as shown in the output of the function 'makeCalibPlotLs' or 'avrgCalibPlotLs'.}
+
+\item{n}{Integer value that determines the number of roughly equal sized groups of the test data subset (default n = 10).}
 }
 \value{
 a data.frame with seven columns:

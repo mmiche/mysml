@@ -4,7 +4,13 @@
 \alias{myRepeatedkFoldcv}
 \title{Repeated k-fold cross-validation.}
 \usage{
-myRepeatedkFoldcv(data = NULL, outcome = "y", folds = NULL, seeds = NULL)
+myRepeatedkFoldcv(
+  data = NULL,
+  outcome = "y",
+  folds = NULL,
+  stratify = TRUE,
+  seeds = NULL
+)
 }
 \arguments{
 \item{data}{The study data that is used for the prediction modeling.}
@@ -12,6 +18,8 @@ myRepeatedkFoldcv(data = NULL, outcome = "y", folds = NULL, seeds = NULL)
 \item{outcome}{Character that represents the column name in the data.frame which contains the observed outcome (default: 'observed').}
 
 \item{folds}{Numeric, the number of folds in the repeated k-fold cross-validation.}
+
+\item{stratify}{Boolean value to determine whether the outcome rate in the cross-validation subsamples shall be (roughly) the same as in the total sample (TRUE) or whether the outcome rate may vary (FALSE).}
 
 \item{seeds}{Numeric vector with a least one seed value (see \strong{Details}).}
 }
