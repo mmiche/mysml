@@ -7,7 +7,8 @@
 computeRelevantResults(
   predictionOutputLs = NULL,
   dcaStartAtZero = TRUE,
-  dcaReasonableThresholds = c(0.01, 0.02, 0.03, 0.04, 0.05)
+  dcaReasonableThresholds = c(0.01, 0.02, 0.03, 0.04, 0.05),
+  fullModelNames = c("Logistic regression")
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ computeRelevantResults(
 \item{dcaStartAtZero}{Boolean value. TRUE (default) if the x-axis of the decision curve plot shall include zero, else FALSE.}
 
 \item{dcaReasonableThresholds}{Numeric vector with the selected reasonable range of threshold probabilities.}
+
+\item{fullModelNames}{Character vector with the full names of the prediction model, e.g., Logistic regression instead of logreg. There must be as many full model names as the length of the argumet \code{predictionOutputLs}, and they must be in the same order.}
 }
 \value{
 a list with three lists as elements:
@@ -33,7 +36,9 @@ Compute results that are relevant for a clinical prediction model.
 # of two prediction models, logistic regression and random forest), which
 # are computed from using a simulated dummy dataset.
 test <- computeRelevantResults(predictionOutputLs = predProbsLs,
-                               dcaReasonableThresholds = c(.02, .03, .04, .05))
+                               dcaReasonableThresholds = c(.02, .03, .04, .05),
+            fullModelNames = c("Logistic regression",
+                              "Random forest"))
 }
 \references{
 \insertRef{vickers2006decision}{mysml}

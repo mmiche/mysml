@@ -8,6 +8,8 @@
 #
 #' @param dcaReasonableThresholds Numeric vector with the selected reasonable range of threshold probabilities.
 #
+#' @param fullModelNames Character vector with the full names of the prediction model, e.g., Logistic regression instead of logreg. There must be as many full model names as the length of the argumet \code{predictionOutputLs}, and they must be in the same order.
+#
 #' @return a list with three lists as elements:
 #' \enumerate{
 #' \item orderedObsLs A list that contains data.frames (df), each df contains the column observed (= observed outcome, 0 = no, 1 = yes) and the column predicted (= predicted probabilities).
@@ -22,7 +24,9 @@
 #' # of two prediction models, logistic regression and random forest), which
 #' # are computed from using a simulated dummy dataset.
 #' test <- computeRelevantResults(predictionOutputLs = predProbsLs,
-#'                                dcaReasonableThresholds = c(.02, .03, .04, .05))
+#'                                dcaReasonableThresholds = c(.02, .03, .04, .05),
+#'             fullModelNames = c("Logistic regression",
+#'                               "Random forest"))
 #
 #' @references
 #'
@@ -36,18 +40,21 @@
 #
 #' @export
 #
-# Use output from prediction models, i.e., compute all relevant results:
-# 'Relevant', as determined by the researchers who are involved in this research project.
-
-# predictionOutputLs <- predProbsLs
-# predictionOutputLs <- fullModelLs
-# dcaReasonableThresholds <- c(.01, .02, .03, .04, .05)
-# dcaStartAtZero <- TRUE
-
-computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE, dcaReasonableThresholds=c(.01, .02, .03, .04, .05)) {
+computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE, dcaReasonableThresholds=c(.01, .02, .03, .04, .05), fullModelNames=c("Logistic regression")) {
     
     # Extract names from the object (of class 'list') predictionOutputLs
     listNames <- names(predictionOutputLs)
+
+    # If the list 'predictionOutputLs' does not contain names of at least one letter, throw an error.
+    if(is.null(listNames) | !is.character(class(listNames)) || any(listNames=="")) {
+        stop("The list passed to 'predictionOutputLs' must contain named list elements, e.g., logreg for logistic regression.")
+    }
+    
+    # fullModelNames must have same length as listNames, if not, throw an error.
+    if(length(listNames) != length(fullModelNames)) {
+        stop("Number of elements in the list passed to 'predictionOutputLs' must be the same as the number of full names of the prediction models.")
+    }
+    
     # Produce empty list with same list names (task: collect the relevant results).
     relevantResultsLs <- sapply(listNames, function(x) NULL)
     
@@ -113,22 +120,29 @@ computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE,
         }
         # names(dcaLs_i)
         
-        # Extract and extend the wide format of the net benefit results of logreg.
-        dcaTblLogreg <- dcaLs_i[["logreg"]]$tbl
-        dcaTblLogreg$model <- "logreg"
-        dcaTblLogreg$rep <- i
+        # Extract and extend the wide format of the net benefit results
+        dcaTblLs <- list()
+        for(m in listNames) {
+            dcaTbl_d <- dcaLs_i[[m]]$tbl
+            dcaTbl_d$model <- m
+            dcaTbl_d$rep <- i
+            dcaTblLs[[m]] <- dcaTbl_d
+        }
         
-        # Extract and extend the wide format of the net benefit results of random forest.
-        dcaTblrndFrst <- dcaLs_i[["rf"]]$tbl
-        dcaTblrndFrst$model <- "randomForest"
-        dcaTblrndFrst$rep <- i
         # Combine wide format DCA tables of logreg and random forest.
-        dcaTbl <- dplyr::bind_rows(dcaTblLogreg, dcaTblrndFrst)
+        dcaTbl <- dplyr::bind_rows(dcaTblLs)
+        
         # Append combined results to the list object 'dcaLs'.
         dcaLs[["tableDCA"]][[i]] <- dcaTbl
-        
+
         # Combine dca results of single prediction modesl.
-        plotDCA <- combineDCA(plotTblLs = list("Logistic regression"=dcaLs_i[["logreg"]]$plotTbl, "Random forest"=dcaLs_i[["rf"]]$plotTbl))
+        plotTblLs <- list()
+        for(m in 1:length(listNames)) {
+            plotTblLs[[fullModelNames[m]]] <- dcaLs_i[[listNames[m]]]$plotTbl
+        }
+        plotDCA <- combineDCA(plotTblLs = plotTblLs)
+        # print(plotDCA, n=nrow(plotDCA))
+        
         # Extract all factor levels from combined dca results
         lvls <- levels(plotDCA$label)
         # Prepare for putting the labels in a nice order
@@ -163,12 +177,16 @@ computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE,
             }
             
         }
-        calibLs[[i]] <- data.frame(logreg=calibLs_i[["logreg"]]$predicted,
-                                   randomForest=calibLs_i[["rf"]]$predicted,
-                                   observed=calibLs_i[["logreg"]]$observed)
+        colNames <- c()
+        for(m in 1:length(listNames)) {
+            colNames <- c(colNames, tolower(gsub(" ", "", fullModelNames[m])))
+        }
+        calibDf <- data.frame(matrix(nrow=length(calibLs_i[[listNames[1]]]$predicted), ncol=length(colNames)+1))
+        for(col in 1:length(listNames)) {
+            calibDf[,col] <- calibLs_i[[listNames[col]]]$predicted
+        }
+        calibDf[,ncol(calibDf)] <- calibLs_i[[listNames[1]]]$observed
+        colnames(calibDf) <- c(colNames, "observed")
     }
-    # head(calibLs[[1]])
-    
     return(list(orderedObsLs=orderedObsLs, dcaLs=dcaLs, calibLs=calibLs))
 }
-
