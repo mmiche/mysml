@@ -187,6 +187,7 @@ computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE,
         }
         calibDf[,ncol(calibDf)] <- calibLs_i[[listNames[1]]]$observed
         colnames(calibDf) <- c(colNames, "observed")
+        calibLs[[i]] <- calibDf
     }
     return(list(orderedObsLs=orderedObsLs, dcaLs=dcaLs, calibLs=calibLs))
 }
