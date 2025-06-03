@@ -1,0 +1,21 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: mysml
+message: >-
+  This Package Contains Supervised Machine Learning
+  Functionality
+type: software
+authors:
+  - given-names: Marcel
+    family-names: Miché
+    email: marcel.miche.predictme@gmail.com
+    orcid: 'https://orcid.org/0000-0001-8838-1749'
+url: 'https://github.com/mmiche/mysml'
+keywords:
+  - supervised machine learning
+  - decision analysis
+license: MIT
+version: 0.1.0
+date-released: '2024-08-06'
