@@ -99,9 +99,6 @@ computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE,
     
     # dcaLs <- list()
     dcaLs <- sapply(c("tableDCA", "plotDCA"), function(x) NULL)
-    # i <- 1
-    # j <- "logreg"
-    # j <- "rf"
     for(i in 1:reps) {
         dcaLs_i <- list()
         for(j in listNames) {
@@ -160,9 +157,6 @@ computeRelevantResults <- function(predictionOutputLs=NULL, dcaStartAtZero=TRUE,
     
     # calib: calibration
     calibLs <- list()
-    # i <- 1
-    # j <- "logreg"
-    # j <- "rf"
     for(i in 1:reps) {
         calibLs_i <- list()
         for(j in listNames) {

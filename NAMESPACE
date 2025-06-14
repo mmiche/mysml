@@ -3,6 +3,7 @@
 export(avrgCalibPlotLs)
 export(compressCalibPlot)
 export(computeRelevantResults)
+export(dca_plotfun)
 export(htbPlotVec)
 export(htbToProb)
 export(makeCalibPlotLs)

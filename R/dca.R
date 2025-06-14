@@ -1,7 +1,6 @@
 # dca
 #
-#' @importFrom dplyr if_else bind_rows
-#' @importFrom tibble tibble
+#' @author Marcel Miché
 #
 #
 dca <- function(inputDataset=NULL, truth=NULL, prob=NULL, selectedThresholds=NULL, plotStartAtZero=FALSE) {
