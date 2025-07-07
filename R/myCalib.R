@@ -49,10 +49,16 @@
 myCalib <- function(calibDf=NULL, outcome="observed") {
 
     calibNames <- colnames(calibDf)
-
+    outcomeWhere <- which(calibNames == outcome)
+    
+    if(length(outcomeWhere) == 0L) {
+        stop("The name of the outcome column cannot be found.")
+    }
+    probColumns <- c(1:ncol(calibDf))[-outcomeWhere]
+    
     calibRes <- list()
     # i <- 1
-    for(i in 1:(ncol(calibDf)-1)) {
+    for(i in probColumns) {
         # [1:18], because rms::val.prob can output an element no.19 with header <NA>
         calibRes[[names(calibDf)[i]]] <- rms::val.prob(p=calibDf[,i], y=calibDf[,outcome], pl=FALSE)[1:18]
         # ece: expected calibration error (using default number of bins = 10)
