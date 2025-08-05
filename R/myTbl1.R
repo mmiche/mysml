@@ -47,7 +47,7 @@ myTable1 <- function(data=NULL, nlvl=10) {
     
     # Start making the overview:
     name <- categ <- absNum <- c()
-    smry <- summary(data[,IDXCAT])
+    smry <- summary(data[,IDXCAT], maxsum = nlvl)
     names <- attributes(smry)$dimnames[[2]]
     
     for(j in names) {
