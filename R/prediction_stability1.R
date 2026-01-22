@@ -25,8 +25,9 @@
 #' @importFrom stats loess predict quantile
 #
 #' @examples
-#' # See the accompanying R script and this package's vignette,
-#' # section Prediction stability.
+#' # Assuming that the output of pminternal::boot_optimism has
+#' # been assigned to the variable 'val'. Then continue with:
+#' # curves <- prediction_stability1(x=val, smooth_bounds = TRUE)
 #
 #' @references
 #'

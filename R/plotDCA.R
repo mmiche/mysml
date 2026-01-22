@@ -21,9 +21,9 @@
 #' @importFrom rlang .data
 #
 #' @examples
-#' # See the accompanying R script and this package's vignette,
-#' # section 1. Decision curve analysis (DCA), performance measure:
-#' # Net benefit (NB).
+#' # Assuming that the output of mysml::visualizeMultipleDCA has
+#' # been assigned to the variable 'mdca'. Then continue with:
+#' # plotDCA(allDCA = pdcaDiscreteBoth, bothModels = TRUE)
 #
 #' @references
 #'

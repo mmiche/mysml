@@ -21,8 +21,9 @@
 #' @importFrom pminternal get_stability
 #
 #' @examples
-#' # See the accompanying R script and this package's vignette,
-#' # section Classification stability.
+#' # Assuming that the output of pminternal::boot_optimism has
+#' # been assigned to the variable 'val'. Then continue with:
+#' # curves <- classification_stability1(x=val, threshold = .03)
 #
 #' @references
 #'

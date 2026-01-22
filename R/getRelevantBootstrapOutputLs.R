@@ -20,8 +20,9 @@
 #' @importFrom pminternal get_stability
 #
 #' @examples
-#' # See the accompanying R script and this package's vignette,
-#' # section Decision curve stability.
+#' # Assuming that the output of pminternal::boot_optimism has
+#' # been assigned to the variable 'val'. Then continue with:
+#' # getRelevantBootstrapOutputLs(x=val, listName = "LR", withApparent=FALSE)
 #
 #' @references
 #'

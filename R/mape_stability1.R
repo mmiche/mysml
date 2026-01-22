@@ -18,8 +18,9 @@
 #' @importFrom pminternal get_stability
 #
 #' @examples
-#' # See the accompanying R script and this package's vignette,
-#' # section MAPE stability (MAPE = mean absolute prediction error).
+#' # Assuming that the output of pminternal::boot_optimism has
+#' # been assigned to the variable 'val'. Then continue with:
+#' # curves <- mape_stability1(x=val)
 #
 #' @references
 #'
