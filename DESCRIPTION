@@ -1,7 +1,7 @@
 Package: mysml
 Type: Package
 Title: This Package Contains Supervised Machine Learning Functionality
-Version: 0.1.0
+Version: 0.1.1
 Author: Marcel Miché
 Maintainer: Marcel Miché <marcel.miche.predictme@gmail.com>
 Description: This package enables easy use of computing the clinical utility, the calibration, and the discriminatory performance of clinical prediction models.
@@ -18,9 +18,13 @@ Imports: Rdpack,
          rms,
          tibble,
          tidyr,
-         magrittr
+         magrittr,
+         ggplot2,
+         pmcalibration,
+         pminternal,
+         rlang
 RdMacros: Rdpack
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Depends: 
     R (>= 4.0.0)
 Suggests: 

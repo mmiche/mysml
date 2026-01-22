@@ -55,7 +55,7 @@ myCalib <- function(calibDf=NULL, outcome="observed") {
         stop("The name of the outcome column cannot be found.")
     }
     probColumns <- c(1:ncol(calibDf))[-outcomeWhere]
-    
+
     calibRes <- list()
     # i <- 1
     for(i in probColumns) {
