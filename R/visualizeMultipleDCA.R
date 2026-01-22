@@ -16,7 +16,6 @@
 #' @author Marcel Miché
 #
 #' @importFrom stats median
-#' @importFrom mysml mnci mnminmax mnq1q3
 #' @importFrom dplyr bind_rows group_by summarise
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data

@@ -20,7 +20,6 @@
 #' @author Stephen Rhodes (see \strong{Details})
 #
 #' @importFrom pminternal get_stability
-#' @importFrom mysml dca_plotfun
 #' @importFrom tibble tibble
 #
 #' @examples

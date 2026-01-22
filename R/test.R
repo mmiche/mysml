@@ -4,7 +4,7 @@
 #' 
 #' Each element of the list is again a list:
 #' 
-#' @format orderedObsLs contains a list of data.frames for each of both prediction models, with 734 rows (20% of full sample size, which is 3670) and 4 columns:
+#' @format orderedObsLs contains a list of data.frames for each of both prediction models, with 734 rows (20\% of full sample size, which is 3670) and 4 columns:
 #' \itemize{
 #'   \item observed (binary outcome; 0 = no event observed, 1 = event observed).
 #'   \item predicted (predicted probabilities, i.e., values between > 0 and < 1).
