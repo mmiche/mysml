@@ -47,6 +47,7 @@ plotDCA <- function(allDCA = NULL, bothModels=FALSE, posDodgeWidth=0) {
         names(useColor) <- modNames[-length(modNames)]
     }
     htbPlot <- function(x) paste0("1:", round((1-x)/x, digits=2))
+    xmax <- dca[[max(which(dca[["label"]]=="Treat all")),"threshold"]]
     # Make dca plot
     dcaPlot <-
         ggplot(data=dca, aes(x=.data$threshold, y=.data$net_benefit, colour=.data$label)) +
@@ -55,7 +56,8 @@ plotDCA <- function(allDCA = NULL, bothModels=FALSE, posDodgeWidth=0) {
         scale_x_continuous(
             sec.axis = dup_axis(name="Harm-to-benefit ratio", labels=htbPlot)) +
         # Take control of the y-axis: How much of the negative part shall be visible?
-        coord_cartesian(ylim=c(-.005, .033), xlim=c(0, .05)) +
+        coord_cartesian(ylim=c(-.005, dca[[1,"net_benefit"]]),
+                        xlim=c(dca[[1,"threshold"]], xmax)) +
         scale_colour_manual(values = useColor) +
         ylab(label="Net benefit") +
         theme(
