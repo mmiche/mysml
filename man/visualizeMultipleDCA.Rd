@@ -23,9 +23,9 @@ a list with three elements:
 Function that prepares the data for the function plotDCA.
 }
 \examples{
-# See the accompanying R script and this package's vignette,
-# section 1. Decision curve analysis (DCA), performance measure:
-# Net benefit (NB).
+# Assuming that the output of mysml::computeRelevantResults has
+# been assigned to the variable 'relRes'. Then continue with:
+# visualizeMultipleDCA(dcaLs = relResLR$dcaLs, dcaSelectType = "mnci")
 }
 \references{
 \insertRef{dplyr2023}{mysml}

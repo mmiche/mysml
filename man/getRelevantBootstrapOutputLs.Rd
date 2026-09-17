@@ -29,8 +29,9 @@ The apparent predicted probabilities (from the original sample) can either be in
 Extract data for performance visualization.
 }
 \examples{
-# See the accompanying R script and this package's vignette,
-# section Decision curve stability.
+# Assuming that the output of pminternal::boot_optimism has
+# been assigned to the variable 'val'. Then continue with:
+# getRelevantBootstrapOutputLs(x=val, listName = "LR", withApparent=FALSE)
 }
 \references{
 \insertRef{pminternal2025}{mysml}

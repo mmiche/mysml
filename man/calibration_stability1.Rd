@@ -25,8 +25,9 @@ Extract data for calibration stability.
 This function is a modification of the function \code{calibration_stability} of the R package \code{pminternal}. The reason to modify it, was that I wanted to visualize the results with ggplot2, not with the R graphics package.
 }
 \examples{
-# See the accompanying R script and this package's vignette,
-# section Calibration stability.
+# Assuming that the output of pminternal::boot_optimism has
+# been assigned to the variable 'val'. Then continue with:
+# curves <- calibration_stability1(x=val)
 }
 \references{
 \insertRef{pmcalibration2025}{mysml}

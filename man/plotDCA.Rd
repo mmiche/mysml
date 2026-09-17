@@ -25,9 +25,9 @@ There are three options of intervals for dcaPlot2: mnci = mean and lower to uppe
 Function that outputs plotted decision curve analysis results.
 }
 \examples{
-# See the accompanying R script and this package's vignette,
-# section 1. Decision curve analysis (DCA), performance measure:
-# Net benefit (NB).
+# Assuming that the output of mysml::visualizeMultipleDCA has
+# been assigned to the variable 'mdca'. Then continue with:
+# plotDCA(allDCA = pdcaDiscreteBoth, bothModels = TRUE)
 }
 \references{
 \insertRef{ggplot22016}{mysml}

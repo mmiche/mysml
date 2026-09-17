@@ -27,8 +27,9 @@ Extract data for classification stability.
 This function is a modification of the function \code{classification_stability} of the R package \code{pminternal}. The reason to modify it, was that I wanted to visualize the results with ggplot2, not with the R graphics package.
 }
 \examples{
-# See the accompanying R script and this package's vignette,
-# section Classification stability.
+# Assuming that the output of pminternal::boot_optimism has
+# been assigned to the variable 'val'. Then continue with:
+# curves <- classification_stability1(x=val, threshold = .03)
 }
 \references{
 \insertRef{pminternal2025}{mysml}

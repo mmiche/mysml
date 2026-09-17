@@ -24,8 +24,9 @@ Extract data for mean average prediction error (MAPE) stability.
 This function is a modification of the function \code{mape_stability} of the R package \code{pminternal}. The reason to modify it, was that I wanted to visualize the results with ggplot2, not with the R graphics package.
 }
 \examples{
-# See the accompanying R script and this package's vignette,
-# section MAPE stability (MAPE = mean absolute prediction error).
+# Assuming that the output of pminternal::boot_optimism has
+# been assigned to the variable 'val'. Then continue with:
+# curves <- mape_stability1(x=val)
 }
 \references{
 \insertRef{pminternal2025}{mysml}
