@@ -17,6 +17,7 @@
 #' \item model Name of the prediction model.
 #' \item run The run among all of the cross-validations of the prediction model.
 #' \item tile Enumeration of selected number of approximately equal sized subsamples.
+#' \item subjects Number of subjects in the respective subsample.
 #' }
 #
 #' @author Marcel Miché

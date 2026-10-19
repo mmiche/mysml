@@ -60,7 +60,7 @@ avrgCalibPlotLs <- function(calibPlotLs=NULL, model="noModel") {
     nTiles <- max(calibPlotDf[,"tile"])
     for(colmn in c("mn_x", "mn_y", "lci_y", "uci_y")) {
         for(t in 1:nTiles) {
-            resultTmp <- mnci(x=calibPlotDf[calibPlotDf[,"tile"]==t,colmn])
+            resultTmp <- mysml::mnci(x=calibPlotDf[calibPlotDf[,"tile"]==t,colmn])
             mnVals <- c(mnVals, resultTmp["mn"])
             lciVals <- c(lciVals, resultTmp["lci"])
             uciVals <- c(uciVals, resultTmp["uci"])

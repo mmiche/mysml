@@ -7,7 +7,7 @@ install.packages("devtools")
 # Install mysml from GitHub
 devtools::install_github(repo="https://github.com/mmiche/mysml",
                       dependencies = "Imports")
-# Load the demoSML package
+# Load the mysml package
 library(mysml)
 # Open the package documentation.
 help(package="mysml")

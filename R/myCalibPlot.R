@@ -13,5 +13,6 @@ myCalibPlot <- function(calibDf=NULL, n=10, model="noNameModel") {
     dfTmp <- data.frame(matrix(data=vals, ncol=4, byrow = TRUE))
     colnames(dfTmp) <- c("mn_x", "mn_y", "lci_y", "uci_y")
     dfTmp$model <- model
+    dfTmp$subjects <- as.numeric(table(idx))
     return(dfTmp)
 }
